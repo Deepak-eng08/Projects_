@@ -1,0 +1,118 @@
+import javax.management.StringValueExp;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+//import java.awt.ActionListner;
+
+class currency extends JFrame implements ActionListener {
+    Container c;
+
+    private JTextField amountField,resulttext,resultField;
+
+    private JLabel amountLabel ,fromLabel,toLabel;
+    private JComboBox<String> fromCurrency,toCurrency;
+    private JButton convertbtn;
+
+
+    currency(){
+
+        setTitle("CURRENCY CONVERTER");
+        setBounds(400,100,400,500);
+        setBackground(Color.black);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLayout(null);
+
+        c=this.getContentPane();
+        c.setLayout(null);
+        c.setBackground(Color.BLACK);
+
+
+        amountLabel=new JLabel("Amount:");
+        amountLabel.setBounds(80,100,50,20);
+        amountLabel.setForeground(Color.white);
+        c.add(amountLabel);
+
+        amountField=new JTextField();
+        amountField.setBounds(140,100,120,20);
+        c.add(amountField);
+
+        fromLabel=new JLabel("From:");
+        fromLabel.setBounds(80,130,50,20);
+        fromLabel.setForeground(Color.white);
+        c.add(fromLabel);
+
+        fromCurrency=new JComboBox<>(new String[]{"INR","USD","EUR"});
+//        fromCurrency.setForeground(Color.w);
+        fromCurrency.setBounds(140,130,120,20);
+        c.add(fromCurrency);
+
+        toLabel=new JLabel("To:");
+        toLabel.setBounds(80,160,50,20);
+        toLabel.setForeground(Color.white);
+        c.add(toLabel);
+
+        toCurrency=new JComboBox<>(new String[]{"USD","INR","EUR"});
+//        fromCurrency.setForeground(Color.w);
+        toCurrency.setBounds(140,160,120,20);
+        c.add(toCurrency);
+
+        convertbtn=new JButton("Convert");
+        convertbtn.setBounds(140,300,100,20);
+        convertbtn.setBackground(Color.GRAY);
+        convertbtn.setForeground(Color.yellow);
+        c.add(convertbtn);
+        convertbtn.addActionListener(this);
+
+        resultField=new JTextField();
+        resultField.setBounds(140,330,100,20);
+//        result.setEditable(false);
+        c.add(resultField);
+
+        setVisible(true);
+    }
+    public void actionPerformed(ActionEvent e){
+        try {
+            double amount =Double.parseDouble((amountField.getText()));
+            String from=(String) fromCurrency.getSelectedItem();
+            String to=(String) toCurrency.getSelectedItem();
+            double result=convertbtn(amount, from, to);
+            resultField.setText(String.format("%2f",result));
+
+        }catch(NumberFormatException exp){
+            JOptionPane.showMessageDialog(this,"Please enter a valid number");
+
+        }
+        }
+        private double convertbtn(double amount,String from,String to){
+        double usdToInr=85.0;
+        double usdToEur=0.93;
+        double inrToUsd=1/usdToInr;
+        double eurToUsd=1/usdToEur;
+        if(from.equals(to))return amount;
+
+        double inUsd=0;
+        switch(from){
+            case "USD": inUsd=amount;break;
+            case "INR": inUsd=amount*inrToUsd;break;
+            case "EUR": inUsd=amount*eurToUsd;break;
+        }
+        switch(to){
+            case "USD": return inUsd;
+            case "INR": return inUsd*usdToEur;
+            case "EUR": return inUsd*usdToEur;
+        }
+        return 0;
+        }
+
+    }
+
+
+public class currency_converterGUI {
+    public static void main(String[] args) {
+        currency c=new currency();
+    }
+//    JFrame frame=new JFrame();
+//    frame.setResizable(false);
+
+}
