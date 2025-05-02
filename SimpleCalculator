@@ -1,0 +1,102 @@
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+class calculator extends JFrame implements ActionListener{
+    Container c;
+     private JLabel number1,number2,result;
+     private JTextField text1,text2;
+    private JButton add,sub,mul,div;
+
+    calculator(){
+        setTitle("SIMPLE CALCULATOR");
+        setBounds(300,100,500,500);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        c=this.getContentPane();
+        c.setLayout(null);
+
+        number1=new JLabel("Number1:");
+        number1.setBounds(100,100,100,20);
+        c.add(number1);
+
+        number2=new JLabel("Number2:");
+        number2.setBounds(100,150,100,20);
+        c.add(number2);
+
+        result=new JLabel("Result:");
+        result.setBounds(100,300,100,20);
+//        result.setEditable(false);
+        c.add(result);
+
+        text1=new JTextField();
+        text1.setBounds(200,100,100,20);
+        c.add(text1);
+
+        text2=new JTextField();
+        text2.setBounds(200,150,100,20);
+        c.add(text2);
+
+        add=new JButton("+");
+        add.setBounds(100,200,42,20);
+        c.add(add);
+
+        sub=new JButton("-");
+        sub.setBounds(160,200,42,20);
+        c.add(sub);
+
+        mul=new JButton("*");
+        mul.setBounds(225,200,42,20);
+        c.add(mul);
+
+        div=new JButton("/");
+        div.setBounds(280,200,42,20);
+        c.add(div);
+
+        add.addActionListener(this);
+        sub.addActionListener(this);
+        mul.addActionListener(this);
+        div.addActionListener(this);
+
+         setVisible(true);
+
+    }
+    public void actionPerformed(ActionEvent e){
+        if(e.getSource()==add) {
+            int a = Integer.parseInt(text1.getText());
+            int b = Integer.parseInt(text2.getText());
+            int c = a + b;
+            result.setText("Result:   " + c);
+        }
+
+        if(e.getSource()==sub) {
+            int a = Integer.parseInt(text1.getText());
+            int b = Integer.parseInt(text2.getText());
+            int c = a - b;
+            result.setText("Result:   " + c);
+        }
+        if(e.getSource()==mul) {
+            int a = Integer.parseInt(text1.getText());
+            int b = Integer.parseInt(text2.getText());
+            int c = a * b;
+            result.setText("Result:   " + c);
+        }
+        if(e.getSource()==div) {
+            int a = Integer.parseInt(text1.getText());
+            int b = Integer.parseInt(text2.getText());
+            int c = a / b;
+            result.setText("Result:   " + c);
+        }
+
+
+    }
+}
+
+public class simpleCalculator {
+    public static void main(String[] args) {
+
+        calculator cal=new calculator();
+    }
+}
